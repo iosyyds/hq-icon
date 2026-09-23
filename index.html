@@ -8,7 +8,7 @@
 <meta name="keywords" content="App图标下载,应用图标下载,高清图标,App Store图标,iOS图标,iPadOS图标,macOS图标,免费图标下载,小甜甜图标工具">
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://iosyyds.github.io/hq-icon/">
-<meta name="theme-color" content="#0e1a3a">
+<meta name="theme-color" content="#0a142e">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -40,11 +40,11 @@
 <style>
   :root{
     --ink:#0b1220;
-    --ink2:#3c4a63;
-    --ink3:#6b7c99;
+    --ink2:#2f3d5c;
+    --ink3:#43547a;
     --line:rgba(255,255,255,.55);
-    --glass:linear-gradient(150deg,rgba(255,255,255,.72),rgba(255,255,255,.4));
-    --glass-soft:linear-gradient(150deg,rgba(255,255,255,.55),rgba(255,255,255,.26));
+    --glass:linear-gradient(150deg,rgba(255,255,255,.76),rgba(255,255,255,.44));
+    --glass-soft:linear-gradient(150deg,rgba(255,255,255,.58),rgba(255,255,255,.3));
     --blur:blur(26px) saturate(180%);
     --blue:#2f6bff;
     --shadow:0 12px 40px rgba(31,38,135,.16);
@@ -54,7 +54,7 @@
   body{
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
     color:var(--ink);min-height:100vh;line-height:1.5;overflow-x:hidden;
-    background:#0e1a3a;
+    background:#0a142e;
   }
   ::selection{background:rgba(47,107,255,.35)}
 
@@ -141,31 +141,29 @@
   @keyframes sheen{0%{background-position:130% 130%}100%{background-position:-30% -30%}}
   .brand h1{
     font-size:32px;font-weight:800;letter-spacing:.4px;line-height:1.12;
-    color:#fff;text-shadow:0 2px 16px rgba(8,18,48,.45);
+    color:#fff;text-shadow:0 1px 2px rgba(5,12,32,.55),0 3px 10px rgba(5,12,32,.5),0 8px 26px rgba(5,12,32,.5);
   }
   @supports ((-webkit-background-clip:text) or (background-clip:text)){
     .brand h1{
-      background:linear-gradient(120deg,#ffffff 8%,#c9ddff 48%,#e7d4ff 85%);
+      background:linear-gradient(120deg,#ffffff 8%,#dbe9ff 48%,#efe0ff 85%);
       background-size:200% 100%;
       -webkit-background-clip:text;background-clip:text;
       color:transparent;-webkit-text-fill-color:transparent;
+      text-shadow:0 1px 2px rgba(5,12,32,.6),0 3px 10px rgba(5,12,32,.5),0 8px 26px rgba(5,12,32,.5);
       animation:gradFlow 8s ease-in-out infinite alternate;
     }
   }
   @keyframes gradFlow{from{background-position:0% 0}to{background-position:100% 0}}
-  .brand p{color:rgba(255,255,255,.86);font-size:13px;margin-top:5px;font-weight:500;text-shadow:0 1px 10px rgba(8,18,48,.5)}
+  .brand p{color:rgba(255,255,255,.92);font-size:13px;margin-top:5px;font-weight:500;text-shadow:0 1px 3px rgba(5,12,32,.65),0 2px 12px rgba(5,12,32,.55)}
   .cnt{
     margin-left:auto;text-align:center;padding:9px 20px;border-radius:18px;
     background:var(--glass);-webkit-backdrop-filter:var(--blur);backdrop-filter:var(--blur);
     border:1px solid var(--line);box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.75);
   }
   .cnt b{
-    display:block;font-size:23px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1;color:#1d4ed8;
+    display:block;font-size:23px;font-weight:900;font-variant-numeric:tabular-nums;line-height:1.1;color:#17348f;
   }
-  @supports ((-webkit-background-clip:text) or (background-clip:text)){
-    .cnt b{background:linear-gradient(135deg,#1d4ed8,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-  }
-  .cnt span{color:rgba(15,27,56,.75);font-size:10px;letter-spacing:2px;font-weight:600}
+  .cnt span{color:rgba(12,22,46,.85);font-size:10px;letter-spacing:2px;font-weight:700}
 
   /* ================= controls ================= */
   .controls{
@@ -191,7 +189,7 @@
     -webkit-backdrop-filter:blur(14px) saturate(150%);backdrop-filter:blur(14px) saturate(150%);
     transition:background .25s,box-shadow .25s,border-color .25s,transform .2s;
   }
-  .search-wrap input::placeholder{color:rgba(40,55,86,.72);font-weight:400}
+  .search-wrap input::placeholder{color:rgba(28,42,72,.85);font-weight:400}
   .search-wrap input:focus{
     background:rgba(255,255,255,.75);transform:translateY(-1px);
     box-shadow:0 0 0 4px rgba(255,255,255,.35),0 10px 30px rgba(31,38,135,.16),inset 0 1px 0 rgba(255,255,255,.9);
@@ -246,7 +244,7 @@
   select.ctl-sel option{background:#fff;color:var(--ink)}
 
   /* ================= status ================= */
-  .status{display:flex;align-items:center;gap:11px;margin:24px 4px 16px;color:rgba(255,255,255,.88);font-size:13px;font-weight:500;min-height:22px;text-shadow:0 1px 8px rgba(8,18,48,.45)}
+  .status{display:flex;align-items:center;gap:11px;margin:24px 4px 16px;color:rgba(255,255,255,.94);font-size:13px;font-weight:600;min-height:22px;text-shadow:0 1px 3px rgba(5,12,32,.6),0 2px 12px rgba(5,12,32,.5)}
   .dot{
     width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.6);flex:none;position:relative;
     transition:background .3s;
@@ -296,8 +294,8 @@
   .st-original img{border-radius:0}
   .info{padding:14px 16px 6px;flex:1;min-width:0;position:relative;z-index:1;transform:translateZ(18px)}
   .info h3{font-size:14.5px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .info .artist{color:var(--ink2);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px;font-weight:500}
-  .info .meta{color:var(--ink3);font-size:11px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:5px;font-weight:500}
+  .info .artist{color:var(--ink2);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:3px;font-weight:600}
+  .info .meta{color:var(--ink3);font-size:11px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:5px;font-weight:600}
   .info .meta .star{color:#f59e0b;text-shadow:0 1px 3px rgba(245,158,11,.4)}
   .actions{display:flex;gap:9px;padding:12px 14px 16px;position:relative;z-index:1;transform:translateZ(26px)}
   .actions .btn-dl{
@@ -380,16 +378,16 @@
   #top:hover{color:#1d4ed8;transform:translateY(-2px)}
   #top svg{width:18px;height:18px}
 
-  footer{border-top:1px solid rgba(255,255,255,.45);margin-top:60px;padding:26px 0 calc(12px + env(safe-area-inset-bottom));color:rgba(255,255,255,.72);font-size:12px;text-align:center;font-weight:500}
-  footer b{color:#fff;font-weight:800}
+  footer{border-top:1px solid rgba(255,255,255,.5);margin-top:60px;padding:26px 0 calc(12px + env(safe-area-inset-bottom));color:rgba(255,255,255,.85);font-size:12px;text-align:center;font-weight:500;text-shadow:0 1px 3px rgba(5,12,32,.55)}
+  footer b{color:#fff;font-weight:800;text-shadow:0 1px 2px rgba(5,12,32,.6)}
   @supports ((-webkit-background-clip:text) or (background-clip:text)){
-    footer b{background:linear-gradient(135deg,#ffffff,#c9ddff 60%,#e7d4ff);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;font-weight:800}
+    footer b{background:linear-gradient(135deg,#ffffff,#dce9ff 60%,#f0e2ff);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;text-shadow:0 1px 2px rgba(5,12,32,.6);font-weight:800}
   }
-  footer a{color:rgba(255,255,255,.92);text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.5);transition:color .2s}
-  footer a:hover{color:#fff}
+  footer a{color:#fff;text-decoration:none;border-bottom:1px dashed rgba(255,255,255,.6);transition:color .2s}
+  footer a:hover{color:#dbe9ff}
   .kbd{
-    display:inline-block;padding:1px 7px;border:1px solid rgba(255,255,255,.65);border-bottom-width:2px;
-    border-radius:6px;font-size:11px;color:rgba(255,255,255,.92);margin-left:9px;background:rgba(255,255,255,.18);
+    display:inline-block;padding:1px 7px;border:1px solid rgba(255,255,255,.75);border-bottom-width:2px;
+    border-radius:6px;font-size:11px;color:#fff;margin-left:9px;background:rgba(10,20,46,.35);font-weight:600;
   }
 
   /* ================= responsive ================= */
