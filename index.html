@@ -3,12 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>HQ ICON · App Store 高清图标下载器</title>
+<title>小甜甜图标工具 · App Store 高清图标下载器</title>
 <meta name="description" content="高质量 App Store 图标下载器，支持 iOS / iPadOS / macOS，多种地区、样式、格式与尺寸。">
 <meta name="theme-color" content="#0e1a3a">
-<meta property="og:title" content="HQ ICON · App Store 高清图标下载器">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:title" content="小甜甜图标工具 · App Store 高清图标下载器">
 <meta property="og:description" content="高质量 App Store 图标下载器，支持 iOS / iPadOS / macOS，多种地区、样式、格式与尺寸。">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233b82f6'/%3E%3Cstop offset='1' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='bold' fill='white' text-anchor='middle'%3EHQ%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%233b82f6'/%3E%3Cstop offset='1' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ctext x='32' y='44' font-family='PingFang SC,Microsoft YaHei,sans-serif' font-size='30' font-weight='bold' fill='white' text-anchor='middle'%3E%E7%94%9C%3C/text%3E%3C/svg%3E">
 <style>
   :root{
     --ink:#0b1220;
@@ -322,7 +326,7 @@
 
   /* ================= toast / top ================= */
   #toast{
-    position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(26px);
+    position:fixed;left:50%;bottom:calc(32px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(26px);
     background:linear-gradient(150deg,rgba(255,255,255,.85),rgba(255,255,255,.6));
     border:1px solid rgba(255,255,255,.85);color:var(--ink);
     padding:13px 22px;border-radius:16px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;
@@ -333,7 +337,7 @@
   }
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   #top{
-    position:fixed;right:22px;bottom:28px;width:46px;height:46px;border-radius:16px;
+    position:fixed;right:22px;bottom:calc(28px + env(safe-area-inset-bottom));width:46px;height:46px;border-radius:16px;
     background:linear-gradient(150deg,rgba(255,255,255,.75),rgba(255,255,255,.45));
     border:1px solid rgba(255,255,255,.8);color:var(--ink2);
     display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:80;
@@ -345,7 +349,8 @@
   #top:hover{color:#1d4ed8;transform:translateY(-2px)}
   #top svg{width:18px;height:18px}
 
-  footer{border-top:1px solid rgba(255,255,255,.4);margin-top:60px;padding:26px 0 12px;color:var(--ink3);font-size:12px;text-align:center;font-weight:500}
+  footer{border-top:1px solid rgba(255,255,255,.4);margin-top:60px;padding:26px 0 calc(12px + env(safe-area-inset-bottom));color:var(--ink3);font-size:12px;text-align:center;font-weight:500}
+  footer b{background:linear-gradient(135deg,#1d4ed8,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:800}
   footer a{color:var(--ink2);text-decoration:none;border-bottom:1px dashed rgba(60,74,99,.4);transition:color .2s}
   footer a:hover{color:#1d4ed8}
   .kbd{
@@ -365,7 +370,7 @@
     .cnt span{font-size:9px}
     .controls{margin-top:20px;padding:13px;border-radius:22px;gap:13px}
     .search-row button{padding:0 20px}
-    .search-wrap input{padding:13px 16px 13px 44px;font-size:15px}
+    .search-wrap input{padding:13px 16px 13px 44px;font-size:16px}
     .controls-row{flex-direction:column;align-items:stretch;gap:12px}
     .ctl{width:100%}
     .ctl .label{width:46px;flex:none}
@@ -418,9 +423,9 @@
 
 <div class="wrap">
   <header>
-    <div class="logo"><span>HQ</span></div>
+    <div class="logo"><span>甜</span></div>
     <div class="brand">
-      <h1>HQ ICON</h1>
+      <h1>小甜甜图标工具</h1>
       <p>High-quality App Store icon downloader<span class="kbd">/ 快速聚焦搜索</span></p>
     </div>
     <div class="cnt"><b id="total">–</b><span>RESULTS</span></div>
@@ -468,7 +473,7 @@
   </main>
 
   <footer>
-    数据来自 <a href="https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html" target="_blank" rel="noopener">Apple iTunes Search API</a>，图标版权归各开发者所有，仅供个人学习使用。
+    <b>小甜甜图标工具</b> · 数据来自 <a href="https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html" target="_blank" rel="noopener">Apple iTunes Search API</a>，图标版权归各开发者所有，仅供个人学习使用。
   </footer>
 </div>
 
@@ -566,7 +571,7 @@
   }
 
   function sanitizeName(s){
-    return String(s).replace(/[\\\/:*?"<>|\s]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'icon';
+    return String(s).replace(/[\\/:*?"<>|\s]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'icon';
   }
 
   var toastTimer = null;
@@ -582,7 +587,14 @@
   }
 
   /* ---------- download ---------- */
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   function downloadIcon(url, filename){
+    if (navigator.vibrate) navigator.vibrate(12);
+    if (isIOS){
+      toast('已为你打开高清原图，长按图片即可保存');
+      window.open(url, '_blank');
+      return;
+    }
     toast('正在下载…');
     fetch(url, { mode: 'cors', credentials: 'omit' })
       .then(function(res){

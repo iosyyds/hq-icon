@@ -1,0 +1,13 @@
+{
+  "name": "小甜甜图标工具",
+  "short_name": "小甜甜",
+  "description": "App Store 高清图标下载器",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0e1a3a",
+  "theme_color": "#0e1a3a",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
