@@ -560,10 +560,26 @@
   }
 
   /* ---------- search ---------- */
-  var SEARCH_SOURCES = [
-    { name: '直连', build: function(q){ return 'https://itunes.apple.com/search?' + q; }, ms: 8000 },
-    { name: '备用通道', build: function(q){ return 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://itunes.apple.com/search?' + q); }, ms: 15000 }
-  ];
+  /* 自建代理自动探测：若部署了 Cloudflare Worker 并绑定 /api/* 路由，自动优先使用 */
+  var selfProxy = null;
+  var pendingProxy = true;
+  function detectSelfProxy(){
+    fetch('./api/search?term=ping&limit=1', { mode: 'cors' })
+      .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(d){ if (d && d.results && d.results.length) selfProxy = './api/search'; })
+      .catch(function(){ selfProxy = null; })
+      .finally(function(){ pendingProxy = false; });
+  }
+
+  function buildSources(q){
+    var list = [];
+    if (selfProxy){
+      list.push({ name: '自建通道', build: function(qq){ return selfProxy + '?' + qq; }, ms: 9000 });
+    }
+    list.push({ name: '直连', build: function(qq){ return 'https://itunes.apple.com/search?' + qq; }, ms: 6000 });
+    list.push({ name: '备用通道', build: function(qq){ return 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://itunes.apple.com/search?' + qq); }, ms: 10000 });
+    return list;
+  }
 
   function fetchOne(url, ms){
     var ctrl = new AbortController();
@@ -581,9 +597,10 @@
   }
 
   function fetchWithFallback(q){
-    return SEARCH_SOURCES.reduce(function(promise, src, idx){
+    var sources = buildSources(q);
+    return sources.reduce(function(promise, src, idx){
       return promise.catch(function(){
-        if (idx > 0) statusEl.textContent = '直连超时，正在切换' + src.name + '…';
+        if (idx > 0) statusEl.textContent = src.name + '不可达，正在切换…';
         return fetchOne(src.build(q), src.ms);
       });
     }, Promise.reject());
@@ -658,6 +675,7 @@
   gridEl.addEventListener('click', onDownloadClick);
 
   termEl.value = state.term;
+  detectSelfProxy();
   runSearch();
 })();
 </script>
