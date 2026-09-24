@@ -560,6 +560,26 @@
   }
 
   /* ---------- search ---------- */
+  function fetchWithTimeout(url, ms, tries){
+    tries = tries || 1;
+    var ctrl = new AbortController();
+    var timer = setTimeout(function(){ ctrl.abort(); }, ms);
+    return fetch(url, { mode: 'cors', signal: ctrl.signal })
+      .then(function(res){
+        clearTimeout(timer);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .catch(function(err){
+        clearTimeout(timer);
+        if (tries < 2){
+          statusEl.textContent = '网络波动，正在重试…';
+          return fetchWithTimeout(url, ms, tries + 1);
+        }
+        throw err;
+      });
+  }
+
   function runSearch(){
     var term = termEl.value.trim();
     if (!term){ toast('请输入关键词'); return; }
@@ -577,11 +597,7 @@
       limit: '50'
     });
 
-    fetch('https://itunes.apple.com/search?' + q.toString(), { mode: 'cors' })
-      .then(function(res){
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.json();
-      })
+    fetchWithTimeout('https://itunes.apple.com/search?' + q.toString(), 12000)
       .then(function(data){
         var results = (data.results || []).filter(function(r){ return r.artworkUrl100 || r.artworkUrl512; });
         statusEl.textContent = '找到 ' + data.resultCount + ' 个结果，展示前 ' + results.length + ' 个';
@@ -590,7 +606,7 @@
       .catch(function(err){
         console.error(err);
         statusEl.textContent = '搜索失败，请检查网络后重试';
-        gridEl.innerHTML = '<div class="empty"><div class="em">⚠️</div><b>加载失败</b>网络似乎开小差了，稍后再试试</div>';
+        gridEl.innerHTML = '<div class="empty"><div class="em">⚠️</div><b>加载失败</b>网络似乎开小差了，点击下方按钮重试</div>';
         totalEl.textContent = '–';
       })
       .finally(function(){ setLoading(false); });
