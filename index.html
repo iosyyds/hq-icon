@@ -560,8 +560,12 @@
   }
 
   /* ---------- search ---------- */
-  function fetchWithTimeout(url, ms, tries){
-    tries = tries || 1;
+  var SEARCH_SOURCES = [
+    { name: '直连', build: function(q){ return 'https://itunes.apple.com/search?' + q; }, ms: 8000 },
+    { name: '备用通道', build: function(q){ return 'https://api.allorigins.win/raw?url=' + encodeURIComponent('https://itunes.apple.com/search?' + q); }, ms: 15000 }
+  ];
+
+  function fetchOne(url, ms){
     var ctrl = new AbortController();
     var timer = setTimeout(function(){ ctrl.abort(); }, ms);
     return fetch(url, { mode: 'cors', signal: ctrl.signal })
@@ -572,12 +576,17 @@
       })
       .catch(function(err){
         clearTimeout(timer);
-        if (tries < 2){
-          statusEl.textContent = '网络波动，正在重试…';
-          return fetchWithTimeout(url, ms, tries + 1);
-        }
         throw err;
       });
+  }
+
+  function fetchWithFallback(q){
+    return SEARCH_SOURCES.reduce(function(promise, src, idx){
+      return promise.catch(function(){
+        if (idx > 0) statusEl.textContent = '直连超时，正在切换' + src.name + '…';
+        return fetchOne(src.build(q), src.ms);
+      });
+    }, Promise.reject());
   }
 
   function runSearch(){
@@ -597,7 +606,7 @@
       limit: '50'
     });
 
-    fetchWithTimeout('https://itunes.apple.com/search?' + q.toString(), 12000)
+    fetchWithFallback(q.toString())
       .then(function(data){
         var results = (data.results || []).filter(function(r){ return r.artworkUrl100 || r.artworkUrl512; });
         statusEl.textContent = '找到 ' + data.resultCount + ' 个结果，展示前 ' + results.length + ' 个';
@@ -605,8 +614,8 @@
       })
       .catch(function(err){
         console.error(err);
-        statusEl.textContent = '搜索失败，请检查网络后重试';
-        gridEl.innerHTML = '<div class="empty"><div class="em">⚠️</div><b>加载失败</b>网络似乎开小差了，点击下方按钮重试</div>';
+        statusEl.textContent = '搜索失败：网络不可达';
+        gridEl.innerHTML = '<div class="empty"><div class="em">⚠️</div><b>加载失败</b>网络似乎开小差了，点击下方按钮重试<br><span style="font-size:12px;color:var(--ink3);margin-top:8px;display:inline-block">提示：可切换 Wi-Fi / 移动网络后再试</span></div>';
         totalEl.textContent = '–';
       })
       .finally(function(){ setLoading(false); });
