@@ -464,6 +464,15 @@
     return String(s).replace(/[\\/:*?"<>|\s]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'icon';
   }
 
+  /* 关键词 → 本地数据文件名（djb2，与生成脚本一致） */
+  function termHash(s){
+    var x = 5381;
+    for (var i = 0; i < s.length; i++){
+      x = ((x << 5) + x + s.charCodeAt(i)) >>> 0;
+    }
+    return x.toString(16);
+  }
+
   var toastTimer = null;
   function toast(msg){
     toastEl.textContent = msg;
@@ -606,6 +615,21 @@
     }, Promise.reject());
   }
 
+  function fetchLocalData(term, ms){
+    var ctrl = new AbortController();
+    var timer = setTimeout(function(){ ctrl.abort(); }, ms);
+    return fetch('data/' + termHash(term) + '.json', { mode: 'cors', signal: ctrl.signal })
+      .then(function(res){
+        clearTimeout(timer);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .catch(function(err){
+        clearTimeout(timer);
+        throw err;
+      });
+  }
+
   function runSearch(){
     var term = termEl.value.trim();
     if (!term){ toast('请输入关键词'); return; }
@@ -615,27 +639,38 @@
     totalEl.textContent = '…';
     skeleton(10);
 
-    var q = new URLSearchParams({
-      term: term,
-      country: state.region,
-      entity: state.platform,
-      media: 'software',
-      limit: '50'
-    });
-
-    fetchWithFallback(q.toString())
+    /* 第一优先级：本地热门数据（同源，无需外网，稳定可达） */
+    fetchLocalData(term, 3500)
       .then(function(data){
         var results = (data.results || []).filter(function(r){ return r.artworkUrl100 || r.artworkUrl512; });
-        statusEl.textContent = '找到 ' + data.resultCount + ' 个结果，展示前 ' + results.length + ' 个';
+        if (!results.length){ throw new Error('empty'); }
+        statusEl.textContent = '已加载热门数据（每日更新），共 ' + results.length + ' 个';
         renderGrid(results);
+        setLoading(false);
       })
-      .catch(function(err){
-        console.error(err);
-        statusEl.textContent = '搜索失败：网络不可达';
-        gridEl.innerHTML = '<div class="empty"><div class="em">⚠️</div><b>加载失败</b>网络似乎开小差了，点击下方按钮重试<br><span style="font-size:12px;color:var(--ink3);margin-top:8px;display:inline-block">提示：可切换 Wi-Fi / 移动网络后再试</span></div>';
-        totalEl.textContent = '–';
-      })
-      .finally(function(){ setLoading(false); });
+      .catch(function(){
+        /* 第二优先级：在线 API 多源 failover */
+        var q = new URLSearchParams({
+          term: term,
+          country: state.region,
+          entity: state.platform,
+          media: 'software',
+          limit: '50'
+        });
+        fetchWithFallback(q.toString())
+          .then(function(data){
+            var results = (data.results || []).filter(function(r){ return r.artworkUrl100 || r.artworkUrl512; });
+            statusEl.textContent = '找到 ' + data.resultCount + ' 个结果，展示前 ' + results.length + ' 个';
+            renderGrid(results);
+          })
+          .catch(function(err){
+            console.error(err);
+            statusEl.textContent = '搜索失败：网络不可达';
+            gridEl.innerHTML = '<div class="empty"><div class="em">⚠️</div><b>加载失败</b>网络似乎开小差了，点击下方按钮重试<br><span style="font-size:12px;color:var(--ink3);margin-top:8px;display:inline-block">提示：可切换 Wi-Fi / 移动网络后再试</span></div>';
+            totalEl.textContent = '–';
+          })
+          .finally(function(){ setLoading(false); });
+      });
   }
 
   /* ---------- misc ---------- */

@@ -2,7 +2,7 @@
 
 高质量 App Store 图标下载器，参考 [icon.yukonga.top](https://icon.yukonga.top/) 实现。基于 [Apple iTunes Search API](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/iTuneSearchAPI/index.html)，纯前端、无后端、无密钥，可直接部署到 GitHub Pages。
 
-在线地址：https://iosyyds.github.io/hq-icon/**（仓库 Settings → Pages 开启后即可访问）
+**在线地址：https://iosyyds.github.io/hq-icon/**（仓库 Settings → Pages 开启后即可访问）
 
 ## 功能特性
 
