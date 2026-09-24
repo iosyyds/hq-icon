@@ -267,7 +267,7 @@
     header{padding:44px 0 6px}
     .logo{width:56px;height:56px;border-radius:14px;font-size:22px}
     .brand h1{font-size:28px;margin-top:16px}
-    .brand p{font-size:13px;margin-top:7px}
+    .brand p{font-size:13px;margin-top:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:94vw;margin-left:auto;margin-right:auto}
     .brand .kbd{display:none}
     .cnt{margin-top:18px;padding:8px 18px;font-size:12px}
     .cnt b{font-size:16px}
@@ -393,7 +393,7 @@
   var PLATFORMS = [['software','iOS'],['ipadSoftware','iPadOS'],['macSoftware','macOS']];
   var STYLES = [['official','官方'],['normal','常规'],['rounded','圆角'],['original','原始']];
   var FORMATS = [['jpg','JPEG'],['png','PNG'],['webp','WebP']];
-  var SIZES = [256,512,1024];
+  var SIZES = [[256,'256'],[512,'512'],[1024,'1024']];
 
   var $ = function(s, el){ return (el || document).querySelector(s); };
   var termEl = $('#term'), goEl = $('#go'), gridEl = $('#grid'),
