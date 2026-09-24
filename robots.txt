@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://iosyyds.github.io/hq-icon/sitemap.xml
+Sitemap: https://apptb.qqqi.de5.net/sitemap.xml
