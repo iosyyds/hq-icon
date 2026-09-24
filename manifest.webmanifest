@@ -1,6 +1,6 @@
 {
-  "name": "小甜甜图标工具",
-  "short_name": "小甜甜",
+  "name": "甜甜图标工具",
+  "short_name": "甜甜",
   "description": "App Store 高清图标下载器",
   "start_url": "./",
   "scope": "./",
